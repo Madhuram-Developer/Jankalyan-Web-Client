@@ -1,22 +1,16 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import Button from './Button'
+import AddAdminModal from './AddAdminModal'
 import { Plus, Trash2 } from 'lucide-react'
 import { TablePagination } from '@mui/material'
+import { useApiGet } from '@/hooks'
 
 const AddAdmin = () => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
-
-    const dummyData = [
-        { name: 'John Doe', email: 'john@example.com', role: 'Admin', action: 'Edit' },
-        { name: 'Jane Smith', email: 'jane@example.com', role: 'Moderator', action: 'View' },
-        { name: 'Bob Johnson', email: 'bob@example.com', role: 'User', action: 'Delete' },
-        { name: 'Alice Brown', email: 'alice@example.com', role: 'Admin', action: 'Edit' },
-        { name: 'Charlie Wilson', email: 'charlie@example.com', role: 'Moderator', action: 'View' },
-        { name: 'Diana Davis', email: 'diana@example.com', role: 'User', action: 'Delete' },
-        { name: 'Eve Miller', email: 'eve@example.com', role: 'Admin', action: 'Edit' },
-    ];
+    const [modalOpen, setModalOpen] = useState(false);
+    const { data: admins, loading: adminsLoading, error: adminsError } = useApiGet('/api/v1/admin/users');
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -27,13 +21,21 @@ const AddAdmin = () => {
         setPage(0);
     };
 
+    if (adminsLoading) {
+        return <div>Loading...</div>;
+    }
+
+    if (adminsError) {
+        return <div>Error loading admins data.</div>;
+    }
+
     return (
         <div className='flex flex-col'>
             <Image src={'/png/frame.png'} width={0} height={0} alt="Logo" className="h-auto w-full border-b border-b-[#0000001C]" unoptimized />
             <div className='flex flex-col px-4 '>
                 <header className='flex justify-between py-2 pt-2'>
                     <h1 className='text-black font-bold text-2xl '>Admins</h1>
-                    <Button className={'flex items-center gap-2 bg-text-primary p-2 rounded-xl text-white cursor-pointer'}><Plus />Add new Admin</Button>
+                    <Button onClick={() => setModalOpen(true)} className={'flex items-center gap-2 bg-text-primary p-2 rounded-xl text-white cursor-pointer'}><Plus />Add new Admin</Button>
                 </header>
                 <div>
                     <div className="table w-full border-collapse">
@@ -46,9 +48,9 @@ const AddAdmin = () => {
                             </div>
                         </div>
                         <div className="table-row-group">
-                            {dummyData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
+                            {(admins?.adminUsers || []).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
                                 <div key={index} className="table-row border-b border-gray-200">
-                                    <div className="table-cell py-3">{row.name}</div>
+                                    <div className="table-cell py-3">{row.fullName}</div>
                                     <div className="table-cell py-3">{row.email}</div>
                                     <div className="table-cell text-center py-3">{row.role}</div>
                                     <div className="table-cell text-center py-3"><div className="flex justify-center items-center"><Trash2 className="text-red-500" /></div></div>
@@ -59,13 +61,15 @@ const AddAdmin = () => {
                 </div>
                 <TablePagination
                     component="div"
-                    count={dummyData.length}
+                    count={admins?.total || 0}
                     page={page}
                     onPageChange={handleChangePage}
                     rowsPerPage={rowsPerPage}
+                    rowsPerPageOptions={[5, 10, 25, 50]}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </div>
+            <AddAdminModal open={modalOpen} onClose={() => setModalOpen(false)} />
         </div>
     )
 }

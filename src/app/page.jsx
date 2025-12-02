@@ -4,6 +4,7 @@ import Card from "@/components/Card";
 import Image from "next/image";
 import { LayoutDashboard, UserPlus, ChartPie, CircleUserRound } from 'lucide-react';
 import Button from "@/components/Button";
+import Logout from "@/components/Logout";
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Dashboard from "@/components/Dashboard";
@@ -46,7 +47,7 @@ export default function Home() {
               <CircleUserRound className="text-text-primary" />
               <span className="text-text-primary font-bold">Full Name</span>
             </div>
-            <Button className={'bg-text-primary text-white font-bold text-sm px-3 py-1'}>Log Out</Button>
+            <Logout />
           </div>
         </div>
       </Card>
