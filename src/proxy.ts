@@ -14,6 +14,7 @@ function isTokenExpired(token: string): boolean {
 
 export async function proxy(request: NextRequest) {
     const token = request.cookies.get('accessToken')?.value
+    console.log(request.cookies.getAll())
 
     console.log('Middleware: Checking authentication for', request.url)
     console.log('Token:', token, isTokenExpired(token))
