@@ -2,7 +2,7 @@
 
 import Card from "@/components/Card";
 import Image from "next/image";
-import { LayoutDashboard, UserPlus, ChartPie, CircleUserRound, Settings } from 'lucide-react';
+import { LayoutDashboard, UserPlus, CircleUserRound, Settings } from 'lucide-react';
 import Logout from "@/components/Logout";
 import { useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
@@ -10,7 +10,6 @@ import { useRouter, usePathname } from 'next/navigation';
 const navItems = [
   { name: 'Dashboard', tab : '/dashboard' , icon: LayoutDashboard },
   { name: 'Admin', tab : '/dashboard/admin', icon: UserPlus },
-  { name: 'Analytics', tab : '/dashboard/analytics', icon: ChartPie },
   { name: 'App Settings', tab : '/dashboard/appsettings', icon: Settings },
 ];
 
@@ -30,7 +29,7 @@ const Layout = ({ children }) => {
       <Card className="flex-1 min-h-full">
         <div className="flex flex-col h-full justify-between">
           <div>
-            <Image src={'/png/logo.png'} width={0} height={0} alt="Logo" className="h-auto w-full -mt-12 border-b border-b-[#0000001C]" unoptimized />
+            <Image src={'/png/appicon.png'} width={0} height={0} alt="Logo" className="h-auto w-full" unoptimized/>
             {navItems.map((item) => (
               <div key={item.name} className={`p-3 text-text-primary font-semibold hover:bg-[#0000000A] cursor-pointer flex items-center px-6 ${item.tab === activeTab ? 'bg-[#742B0021]' : ''}`} onClick={() => handleTabClick(item.tab)}>
                 <item.icon className="w-5 h-5 mr-2" />

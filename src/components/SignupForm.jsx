@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import { TextField, Button, Typography, Snackbar, Alert } from '@mui/material'
+import { TextField, Button, Typography, Snackbar, Alert, IconButton, InputAdornment } from '@mui/material'
+import { Eye, EyeOff } from 'lucide-react'
 import { useApiPost } from '@/hooks'
 
 const SignupForm = () => {
     const [formData, setFormData] = useState({ fullName: '', email: '', password: '', confirmPassword: '' })
     const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' })
+    const [showPassword, setShowPassword] = useState(false)
     const { post, loading } = useApiPost('/api/v1/admin/register')
 
     const handleChange = (e) => {
@@ -27,10 +29,10 @@ const SignupForm = () => {
 
     return (
         <>
-            <Typography variant="h4" component="h1" gutterBottom align="center">
+            <div className='text-2xl font-semibold mb-6 text-center'>
                 Sign Up
-            </Typography>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            </div>
+            <form onSubmit={handleSubmit} className="space-y-4 w-full flex flex-col gap-4">
                 <TextField
                     label="Full Name"
                     name="fullName"
@@ -38,6 +40,17 @@ const SignupForm = () => {
                     onChange={handleChange}
                     fullWidth
                     required
+                    className='bg-[#742B0024]'
+                    slotProps={{
+                        inputLabel: { style: { color: 'black' } },
+                        input: { style: { color: 'black' } },
+                    }}
+                    sx={{
+                        "& .MuiOutlinedInput-root": {
+                            "&:hover fieldset": { borderColor: "black" },
+                            "&.Mui-focused fieldset": { borderColor: "black" },
+                        },
+                    }}
                 />
                 <TextField
                     label="Email"
@@ -47,26 +60,81 @@ const SignupForm = () => {
                     onChange={handleChange}
                     fullWidth
                     required
+                    className='bg-[#742B0024]'
+                    slotProps={{
+                        inputLabel: { style: { color: 'black' } },
+                        input: { style: { color: 'black' } },
+                    }}
+                    sx={{
+                        "& .MuiOutlinedInput-root": {
+                            "&:hover fieldset": { borderColor: "black" },
+                            "&.Mui-focused fieldset": { borderColor: "black" },
+                        },
+                    }}
                 />
                 <TextField
                     label="Password"
                     name="password"
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     value={formData.password}
                     onChange={handleChange}
                     fullWidth
                     required
+                    className='bg-[#742B0024]'
+                    slotProps={{
+                        inputLabel: { style: { color: 'black' } },
+                        input: {
+                            style: { color: 'black' }, endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        edge="end"
+                                    >
+                                        {showPassword ? <EyeOff /> : <Eye />}
+                                    </IconButton>
+                                </InputAdornment>
+                            )
+                        },
+                    }}
+                    sx={{
+                        "& .MuiOutlinedInput-root": {
+                            "&:hover fieldset": { borderColor: "black" },
+                            "&.Mui-focused fieldset": { borderColor: "black" },
+                        },
+                    }}
                 />
                 <TextField
                     label="Confirm Password"
                     name="confirmPassword"
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     value={formData.confirmPassword}
                     onChange={handleChange}
                     fullWidth
                     required
+                    className='bg-[#742B0024]'
+                    slotProps={{
+                        inputLabel: { style: { color: 'black' } },
+                        input: {
+                            style: { color: 'black' }, endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        edge="end"
+                                    >
+                                        {showPassword ? <EyeOff /> : <Eye />}
+                                    </IconButton>
+                                </InputAdornment>
+                            )
+                        },
+                    }}
+                    sx={{
+                        "& .MuiOutlinedInput-root": {
+                            "&:hover fieldset": { borderColor: "black" },
+                            "&.Mui-focused fieldset": { borderColor: "black" },
+                        },
+                    }}
                 />
-                <Button type="submit" variant="contained" fullWidth disabled={loading}>
+                <Button type="submit" variant="contained" className='bg-text-primary! mt-4!' fullWidth disabled={loading}>
                     {loading ? 'Signing Up...' : 'Sign Up'}
                 </Button>
             </form>
