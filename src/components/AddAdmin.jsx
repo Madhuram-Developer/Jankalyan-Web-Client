@@ -6,12 +6,15 @@ import { Plus, Trash2 } from 'lucide-react'
 import { TablePagination } from '@mui/material'
 import { useApiGet } from '@/hooks'
 import Loader from './Loader'
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 const AddAdmin = () => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [modalOpen, setModalOpen] = useState(false);
-    const { data: admins, loading: adminsLoading, error: adminsError } = useApiGet('/api/v1/admin/users');
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const { data: admins, loading: adminsLoading, error: adminsError, refetch: refetchAdmins } = useApiGet('/api/v1/admin/users');
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -20,6 +23,15 @@ const AddAdmin = () => {
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
+    };
+
+    const handleAddAdmin = async () => {
+        try {
+            refetchAdmins();
+            setSnackbarOpen(true);
+        } catch (error) {
+            console.error('Error adding admin:', error);
+        }
     };
 
     if (adminsLoading) {
@@ -70,7 +82,17 @@ const AddAdmin = () => {
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </div>
-            <AddAdminModal open={modalOpen} onClose={() => setModalOpen(false)} />
+            <AddAdminModal open={modalOpen} onClose={() => setModalOpen(false)} onSuccess={handleAddAdmin}/>
+            <Snackbar
+                open={snackbarOpen}
+                autoHideDuration={6000}
+                onClose={() => setSnackbarOpen(false)}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            >
+                <Alert onClose={() => setSnackbarOpen(false)} severity="success" sx={{ width: '100%' }}>
+                    Admin added successfully!
+                </Alert>
+            </Snackbar>
         </div>
     )
 }

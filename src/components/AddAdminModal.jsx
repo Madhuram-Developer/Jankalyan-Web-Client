@@ -4,7 +4,7 @@ import Modal from './Modal'
 import Button from './Button'
 import { useApiPost } from '@/hooks'
 
-const AddAdminModal = ({ open, onClose }) => {
+const AddAdminModal = ({ open, onClose, onSuccess }) => {
     const [email, setEmail] = useState('')
     const { post, loading } = useApiPost('/api/v1/admin/add')
 
@@ -12,6 +12,7 @@ const AddAdminModal = ({ open, onClose }) => {
         if (!email.trim()) return
         try {
             await post({ email })
+            onSuccess()
             onClose()
             setEmail('')
         } catch (err) {
