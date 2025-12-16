@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 function isTokenExpired(token: string): boolean {
+    
     try {
         const payload = token.split('.')[1]
         const decoded = JSON.parse(atob(payload.replace(/-/g, '+').replace(/_/g, '/')))
@@ -13,10 +14,14 @@ function isTokenExpired(token: string): boolean {
 
 export async function proxy(request: NextRequest) {
     const token = request.cookies.get('accessToken')?.value
+
+    console.log('Middleware: Checking authentication for', request.url)
+    console.log('Token:', token, isTokenExpired(token))
     
     if (!token || isTokenExpired(token)) {
         return NextResponse.redirect(new URL('/auth', request.url))
     }
+    console.log('Token is valid, proceeding to', request.url)
 
     return NextResponse.next()
 }
