@@ -1,3 +1,6 @@
+'use client'
+
+
 import React from 'react'
 import QuestionView from "@/components/QuestionView";
 

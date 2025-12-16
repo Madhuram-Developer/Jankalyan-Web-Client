@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from 'react'
 import { CornerUpLeft } from 'lucide-react'
 import { formatDateIST } from '@/utils/dateUtils'
