@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import api from '../utils/api';
 
-const useApiPost = (url, options = {}) => {
+const useApiPost = (url, onSuccess = null, options = {}) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -15,6 +15,7 @@ const useApiPost = (url, options = {}) => {
       const response = await api.post(url, postData,{ withCredentials : true }, options);
       setData(response.data);
       setSuccess(true);
+      if (onSuccess) onSuccess();
       return response.data;
     } catch (err) {
       setError(err);
@@ -24,7 +25,7 @@ const useApiPost = (url, options = {}) => {
     }
   };
 
-  return { post, data, loading, error, success };
+  return { post, data, loading, error, success, onSuccess };
 };
 
 export default useApiPost;
