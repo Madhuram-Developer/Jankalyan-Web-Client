@@ -13,16 +13,12 @@ function isTokenExpired(token: string): boolean {
 }
 
 export async function proxy(request: NextRequest) {
-    const token = request.cookies.get('accessToken')?.value
-    console.log(request.cookies.getAll())
-
-    console.log('Middleware: Checking authentication for', request.url)
-    console.log('Token:', token, isTokenExpired(token))
+    // const token = request.cookies.get('accessToken')?.value
     
-    if (!token || isTokenExpired(token)) {
-        return NextResponse.redirect(new URL('/auth', request.url))
-    }
-    console.log('Token is valid, proceeding to', request.url)
+
+    // if (!token || isTokenExpired(token)) {
+    //     return NextResponse.redirect(new URL('/auth', request.url))
+    // }
 
     return NextResponse.next()
 }
