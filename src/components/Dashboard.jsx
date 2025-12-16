@@ -6,6 +6,7 @@ import { useApiGet } from '@/hooks'
 import { API_ENDPOINTS } from '@/constants/api'
 import { formatDateTimeIST } from '@/utils/dateUtils'
 import { ChevronDown } from 'lucide-react'
+import Loader from './Loader'
 
 
 const Dashboard = () => {
@@ -109,7 +110,6 @@ const Dashboard = () => {
 
     return (
         <div className='flex flex-col'>
-            <Image src={'/png/frame.png'} width={0} height={0} alt="Logo" className="h-auto w-full border-b border-b-[#0000001C]" unoptimized />
             <div className='flex flex-col px-4 py-2'>
                 {showQuestionView ? (
                     <QuestionView question={selectedQuestion} onBack={() => setShowQuestionView(false)} />
@@ -170,7 +170,7 @@ const Dashboard = () => {
 
                         <div className="">
                             {loading ? (
-                                <div className="text-center py-4">Loading doubts...</div>
+                                <Loader/>
                             ) : error ? (
                                 <div className="text-center py-4 text-red-500">Error loading doubts: {error.message}</div>
                             ) : (

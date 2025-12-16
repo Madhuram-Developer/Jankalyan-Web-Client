@@ -5,6 +5,7 @@ import AddAdminModal from './AddAdminModal'
 import { Plus, Trash2 } from 'lucide-react'
 import { TablePagination } from '@mui/material'
 import { useApiGet } from '@/hooks'
+import Loader from './Loader'
 
 const AddAdmin = () => {
     const [page, setPage] = useState(0);
@@ -22,7 +23,7 @@ const AddAdmin = () => {
     };
 
     if (adminsLoading) {
-        return <div>Loading...</div>;
+        return <Loader/>;
     }
 
     if (adminsError) {
@@ -31,7 +32,7 @@ const AddAdmin = () => {
 
     return (
         <div className='flex flex-col'>
-            <Image src={'/png/frame.png'} width={0} height={0} alt="Logo" className="h-auto w-full border-b border-b-[#0000001C]" unoptimized />
+            
             <div className='flex flex-col px-4 '>
                 <header className='flex justify-between py-2 pt-2'>
                     <h1 className='text-black font-bold text-2xl '>Admins</h1>

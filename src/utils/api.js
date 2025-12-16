@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'https://api.example.com', // Replace with your actual API base URL
+  baseURL: process.env.NEXT_PUBLIC_API_URL, 
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ api.interceptors.response.use(
   (error) => {
     // Handle common errors like 401, 403, etc.
     if (error.response?.status === 401) {
-      // Redirect to login or refresh token
+      window.location.href = '/auth';
     }
     return Promise.reject(error);
   }
