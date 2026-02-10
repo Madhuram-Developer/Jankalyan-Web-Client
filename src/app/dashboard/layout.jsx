@@ -2,7 +2,7 @@
 
 import Card from "@/components/Card";
 import Image from "next/image";
-import { LayoutDashboard, UserPlus, CircleUserRound, Settings } from 'lucide-react';
+import { LayoutDashboard, UserPlus, CircleUserRound, Settings, FileText } from 'lucide-react';
 import Logout from "@/components/Logout";
 import { useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
@@ -11,6 +11,7 @@ const navItems = [
   { name: 'Dashboard', tab: '/dashboard', icon: LayoutDashboard },
   { name: 'Admin', tab: '/dashboard/admin', icon: UserPlus },
   { name: 'App Settings', tab: '/dashboard/appsettings', icon: Settings },
+  { name: 'Logs', tab: '/dashboard/logs', icon: FileText },
 ];
 
 const Layout = ({ children }) => {

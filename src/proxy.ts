@@ -14,9 +14,6 @@ function isTokenExpired(token: string): boolean {
 
 export async function proxy(request: NextRequest) {
     const token = request.cookies.get('accessToken')?.value
-    console.log('Proxy middleware activated for:', request.url) 
-    console.log('Access Token:', token)
-    console.log('Token Expired:', isTokenExpired(token))
 
     if (!token || isTokenExpired(token)) {
         return NextResponse.redirect(new URL('/auth', request.url))
