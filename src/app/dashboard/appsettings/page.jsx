@@ -136,23 +136,11 @@ const AppSettingsPage = () => {
               />
               <TextField
                 fullWidth
-                label="UPI ID"
+                label="Payment Link"
                 name="upiId"
                 value={formData.upiId}
                 onChange={handleChange}
                 margin="normal"
-                size="small"
-                sx={{ '& .MuiInputBase-input': { padding: '6px 10px' } }}
-              />
-              <TextField
-                fullWidth
-                label="Transaction Note"
-                name="TransactionNote"
-                value={formData.TransactionNote}
-                onChange={handleChange}
-                margin="normal"
-                multiline
-                rows={2}
                 size="small"
                 sx={{ '& .MuiInputBase-input': { padding: '6px 10px' } }}
               />
