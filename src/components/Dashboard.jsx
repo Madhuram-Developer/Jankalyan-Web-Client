@@ -179,8 +179,6 @@ const Dashboard = () => {
                                         <div className="table-row border-b border-gray-200">
                                             <div className="table-cell text-[#00000078] text-xl py-3" style={{ width: '170px', minWidth: '170px' }}>Date</div>
                                             <div className="table-cell text-[#00000078] text-xl py-3">Question</div>
-                                            <div className="table-cell text-center text-[#00000078] text-xl py-3">Gender</div>
-                                            <div className="table-cell text-center text-[#00000078] text-xl py-3">Address</div>
                                             <div className="table-cell text-center text-[#00000078] text-xl py-3">Category</div>
                                             <div className="table-cell text-center text-[#00000078] text-xl py-3">Status</div>
                                             <div className="table-cell text-center text-[#00000078] text-xl py-3">Action</div>
@@ -191,13 +189,6 @@ const Dashboard = () => {
                                             <div key={index} className="table-row border-b border-gray-200 hover:bg-gray-50">
                                                 <div className="table-cell py-3" style={{ width: '150px', minWidth: '150px' }}>{formatDateTimeIST(row.createdAt)}</div>
                                                 <div className="table-cell py-3">{row.question}</div>
-                                                <div className="table-cell text-center py-3">
-                                                    <span className='bg-[#742B0024] text-black px-2 py-1 rounded-sm text-sm font-medium capitalize'>{row.gender || '—'}</span>
-                                                </div>
-                                                <div className="table-cell text-center py-3">
-                                                    <span className='block'>{row.city || ''}, </span>
-                                                    <span className='block text-xs text-gray-500'>{row.state || ''}</span>
-                                                </div>
                                                 <div className="table-cell text-center py-3 ">
                                                     <span className='bg-[#742B0024] text-black px-2 py-1 rounded-sm text-sm font-medium'>{row.category}</span>
                                                 </div>

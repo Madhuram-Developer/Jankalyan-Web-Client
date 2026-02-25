@@ -73,6 +73,9 @@ const QuestionView = ({ question, onBack }) => {
                 <h4><span className='font-bold'>Name:</span> {question.fullName}</h4>
                 <h4><span className='font-bold'>Phone:</span> {question.phoneNumber}</h4>
                 <h4><span className='font-bold'>DOB:</span> {formatDateIST(question.dob)}</h4>
+                <h4><span className='font-bold'>Gender:</span> <span className='capitalize'>{question.gender || '—'}</span></h4>
+                <h4><span className='font-bold'>City:</span> {question.city || '—'}</h4>
+                <h4><span className='font-bold'>State:</span> {question.state || '—'}</h4>
             </div>
             <Snackbar
                 open={snackbar.open}
