@@ -2,7 +2,7 @@
 
 import Card from "@/components/Card";
 import Image from "next/image";
-import { LayoutDashboard, UserPlus, CircleUserRound, Settings, FileText } from 'lucide-react';
+import { LayoutDashboard, UserPlus, CircleUserRound, Settings, FileText, Heart } from 'lucide-react';
 import Logout from "@/components/Logout";
 import { useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
@@ -10,6 +10,7 @@ import { useRouter, usePathname } from 'next/navigation';
 const navItems = [
   { name: 'Dashboard', tab: '/dashboard', icon: LayoutDashboard },
   { name: 'Admin', tab: '/dashboard/admin', icon: UserPlus },
+  { name: 'Donations', tab: '/dashboard/donations', icon: Heart },
   { name: 'App Settings', tab: '/dashboard/appsettings', icon: Settings },
   { name: 'Logs', tab: '/dashboard/logs', icon: FileText },
 ];

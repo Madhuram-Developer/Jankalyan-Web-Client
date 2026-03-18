@@ -13,6 +13,7 @@ const AppSettingsPage = () => {
     description: '',
     paymentQR: '',
     bankName: '',
+    accountName: '',
     ifscCode: '',
     accountNumber: '',
     videoUrl: '',
@@ -149,6 +150,16 @@ const AppSettingsPage = () => {
                 label="Bank Name"
                 name="bankName"
                 value={formData.bankName}
+                onChange={handleChange}
+                margin="normal"
+                size="small"
+                sx={{ '& .MuiInputBase-input': { padding: '6px 10px' } }}
+              />
+              <TextField
+                fullWidth
+                label="Account Name"
+                name="accountName"
+                value={formData.accountName}
                 onChange={handleChange}
                 margin="normal"
                 size="small"
