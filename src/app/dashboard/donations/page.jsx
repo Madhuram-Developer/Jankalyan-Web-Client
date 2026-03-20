@@ -33,6 +33,13 @@ const DonationsPage = () => {
     setEditingDonation(null);
   });
 
+  const { post: deletePost, loading: deleteLoading } = useApiPost('', () => {
+    setSnackbarMessage('Donation deleted successfully!');
+    setSnackbarSeverity('success');
+    setSnackbarOpen(true);
+    refetch();
+  });
+
   const getDonationsList = () => {
     if (!data) return [];
     return Array.isArray(data) ? data : (data.donations || []);
@@ -64,11 +71,8 @@ const DonationsPage = () => {
   const handleDeleteDonation = async (donation) => {
     if (window.confirm('Are you sure you want to delete this donation?')) {
       try {
-        await api.post(`${API_ENDPOINTS.DONATIONS}/${donation.id || donation._id}/delete`);
-        setSnackbarMessage('Donation deleted successfully!');
-        setSnackbarSeverity('success');
-        setSnackbarOpen(true);
-        refetch();
+        const deleteUrl = `${API_ENDPOINTS.DONATIONS}/${donation.id || donation._id}/delete`;
+        await deletePost({}, deleteUrl);
       } catch (err) {
         console.error('Error deleting donation:', err);
         setSnackbarMessage('Error deleting donation. Please try again.');
@@ -179,7 +183,7 @@ const DonationsPage = () => {
         onSuccess={handleAddDonation}
         loading={postLoading}
         editingDonation={editingDonation}
-      />
+      /> 
 
       <Snackbar
         open={snackbarOpen}
